@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if not_done %}
+    <h1>Following product descriptions were not changed</h1>
+    
+    {% for product in not_done %}
+        {{ product }} <br>
+    {% endfor %}
+        
+{% endif %}
+{% if done %}
+    <h1>Following product descriptions were changed</h1>
+    
+    {% for product in done %}
+        {{ product }} <br>
+    {% endfor %}
+        
+{% endif %}
+
+<form action="./{{ product.product_id }}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="submit">
+</form>
+
+<br>
+
+{% endblock content %}
+    

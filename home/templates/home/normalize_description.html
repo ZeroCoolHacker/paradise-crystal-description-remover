@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if new_description %}
+<div class="product box">
+    <div class="wrapper">
+        {% if product.images %}
+        <p>Has some images</p>
+        <img src="{{ product.images.0.small }}" />
+        {% endif %}
+        <h4><a href="https://{{ current_shop.domain }}/admin/products/{{ product.id }}">{{ product.title }}</a></h4>
+
+        <p class="price">{{ product.price_range }} {{ current_shop.currency }}</p>
+        <p style="margin-bottom: 0">{{ product.product_type }} <span class="note">type</span></p>
+        <p style="margin: 0">{{ product.vendor }} <span class="note">vendor</span></p>
+        <h3>Description</h3>
+        <p>{{ product.body_html|safe }}</p>
+        <div style="clear:left"></div>
+    </div>
+</div>
+{% endif %}
+<form action="./{{ product.product_id }}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="submit">
+</form>
+
+<br>
+<hr>
+{% if new_description %}
+<h1>New Description</h1>
+{{ new_description|safe }}
+{% endif %}
+{% endblock content %}
+    
